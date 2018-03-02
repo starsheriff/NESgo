@@ -13,3 +13,7 @@ func TestInstructionsTable(t *testing.T) {
 		t.Errorf("Instruction is wrong")
 	}
 }
+
+func TestCPUToString(t *testing.T) {
+
+}
