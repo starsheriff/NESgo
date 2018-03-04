@@ -43,13 +43,24 @@ type (
 // N - Negative Flag
 type StatusRegister byte
 
-func (c *StatusRegister) setBit(n byte) {
-	*c = *c | StatusRegister(n<<0)
+//TODO: proper namespacing and type safety?
+const (
+	CarryFlag        uint = 0
+	ZeroFlag         uint = 1
+	InterruptDisable uint = 2
+	DecimalMode      uint = 3
+	BreakCommand     uint = 4
+	UnusedFlag       uint = 5
+	OverflowFlag     uint = 6
+	NegativeFlag     uint = 7
+)
+
+func (c *StatusRegister) setBit(n uint) {
+	*c = *c | StatusRegister(1<<n)
 }
 
 func (c *StatusRegister) SetCarryFlag() {
-	//*c = *c | (1 << 0)
-	c.setBit(1)
+	c.setBit(CarryFlag)
 }
 
 func (c *CPU) unsetCarryFlag() {
