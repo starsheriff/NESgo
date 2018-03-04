@@ -20,3 +20,13 @@ func TestCPUToString(t *testing.T) {
 
 	fmt.Println(res)
 }
+
+func TestStatusRegister(t *testing.T) {
+	var r StatusRegister = 0x00
+
+	r.SetCarryFlag()
+
+	if r != 0x01 {
+		t.Errorf("StatusRegister: expected 0x01, got %q", r)
+	}
+}

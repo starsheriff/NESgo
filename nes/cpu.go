@@ -29,10 +29,27 @@ type (
 	carryBit     bool
 )
 
+// Status Register of the CPU
+// 7 6 5 4 3 2 1 0
+// | | | | | | | |
+// N V   B D I Z C
+//
+// C - CarryFlag
+// Z - ZeroFlag
+// I - InterruptDisable
+// D - Decimal Mode
+// B - BreakCommand
+// V - Overflow Flag
+// N - Negative Flag
 type StatusRegister byte
 
-func (c *CPU) setCarryFlag() {
-	c.statusReg = c.statusReg | (1 << 0)
+func (c *StatusRegister) setBit(n byte) {
+	*c = *c | StatusRegister(n<<0)
+}
+
+func (c *StatusRegister) SetCarryFlag() {
+	//*c = *c | (1 << 0)
+	c.setBit(1)
 }
 
 func (c *CPU) unsetCarryFlag() {
