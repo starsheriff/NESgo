@@ -36,6 +36,7 @@ func (c *CPU) setCarryFlag() {
 }
 
 func (c *CPU) unsetCarryFlag() {
+	//TODO: fixme
 	c.statusReg = c.statusReg | (1 << 0)
 }
 
@@ -49,16 +50,29 @@ type CPU struct {
 
 	cycles int64 // elapsed cpu cycles
 
-	instruction_map [256]func()
+	instructionMap [256]func()
 }
 
-// Construct a new Cpu
+// NewCPU construct a new CPU object. It is designed in a way that resembles
+// a physical silicon chip as close as possible from a users point of view.
+// This means the CPU is in a state identical to the silicon version as
+// explained in the chip's datasheet.
+//
+// In particular, it means that the user is responsible in calling the powerup
+// and other required initialisation steps as well as connect the CPU to other
+// peripherials.
 func NewCPU() CPU {
-	return CPU{}
+	cpu := CPU{}
+	cpu.mapInstructions()
+	return cpu
 }
 
-func (c *CPU) map_instructions() {
-	c.instruction_map = [256]func(){0x00: c.Instruction_AAA}
+// Create the
+func (c *CPU) mapInstructions() {
+	c.instructionMap = [256]func(){
+		//TODO:complete
+		0x00: c.aaa,
+	}
 }
 
 // do one step
@@ -82,7 +96,6 @@ func (c *CPU) ToString() string {
 }
 
 // implementation of instructions
-func (c *CPU) Instruction_AAA() {}
 
 func (c *CPU) aaa() {
 	fmt.Println("Instruction aaa called")

@@ -15,5 +15,8 @@ func TestInstructionsTable(t *testing.T) {
 }
 
 func TestCPUToString(t *testing.T) {
+	c := NewCPU()
+	res := c.ToString()
 
+	fmt.Println(res)
 }
