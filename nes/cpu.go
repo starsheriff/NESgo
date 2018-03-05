@@ -59,14 +59,28 @@ func (c *StatusRegister) setBit(n uint) {
 	*c = *c | StatusRegister(1<<n)
 }
 
+func (c *StatusRegister) unsetBit(n uint) {
+	*c = *c &^ StatusRegister(1<<n)
+}
+
 func (c *StatusRegister) SetCarryFlag() {
 	c.setBit(CarryFlag)
 }
 
-func (c *CPU) unsetCarryFlag() {
+func (c *StatusRegister) UnsetCarryFlag() {
 	//TODO: fixme
-	c.statusReg = c.statusReg | (1 << 0)
+	c.unsetBit(CarryFlag)
 }
+
+func (c *StatusRegister) SetZeroFlag() {
+	c.setBit(ZeroFlag)
+}
+
+func (c *StatusRegister) UnsetZeroFlag() {
+	c.unsetBit(ZeroFlag)
+}
+
+//TODO: complete setters and unsetters... really? No generics? That sucks.
 
 // CPU represents the 6502 CPU of the NES system
 type CPU struct {

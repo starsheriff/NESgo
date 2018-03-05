@@ -22,11 +22,29 @@ func TestCPUToString(t *testing.T) {
 }
 
 func TestStatusRegister(t *testing.T) {
+	// simplest case
 	var r StatusRegister = 0x00
 
 	r.SetCarryFlag()
-
 	if r != 0x01 {
 		t.Errorf("StatusRegister: expected 0x01, got %q", r)
+	}
+
+	r.UnsetCarryFlag()
+	if r != 0x00 {
+		t.Errorf("StatusRegister: expected 0x00, got %q", r)
+	}
+
+	// Test that other bits are not set or cleared
+	r = 0x04
+
+	r.SetCarryFlag()
+	if r != 0x05 {
+		t.Errorf("StatusRegister: expected 0x05, got %q", r)
+	}
+
+	r.UnsetCarryFlag()
+	if r != 0x04 {
+		t.Errorf("StatusRegister: expected 0x04, got %q", r)
 	}
 }
