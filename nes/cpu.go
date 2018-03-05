@@ -55,6 +55,11 @@ const (
 	NegativeFlag     uint = 7
 )
 
+// Set sets the whole status register to the given `val` in one operation.
+func (c *StatusRegister) Set(val byte) {
+	*c = StatusRegister(val)
+}
+
 func (c *StatusRegister) setBit(n uint) {
 	*c = *c | StatusRegister(1<<n)
 }
